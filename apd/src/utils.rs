@@ -163,12 +163,3 @@ pub fn umask(_mask: u32) {
 pub fn has_magisk() -> bool {
     which::which("magisk").is_ok()
 }
-pub fn get_tmp_path() -> &'static str {
-    if metadata(defs::TEMP_DIR_LEGACY).is_ok() {
-        return defs::TEMP_DIR_LEGACY;
-    }
-    if metadata(defs::TEMP_DIR).is_ok() {
-        return defs::TEMP_DIR;
-    }
-    ""
-}

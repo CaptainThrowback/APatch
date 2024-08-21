@@ -21,7 +21,6 @@ use rustix::stdio::{dup2_stderr, dup2_stdin, dup2_stdout};
 use rustix::termios::{isatty, tcgetattr, tcsetattr, OptionalActions, Termios};
 
 use crate::defs::PTS_NAME;
-use crate::utils::get_tmp_path;
 
 // https://github.com/topjohnwu/Magisk/blob/5627053b7481618adfdf8fa3569b48275589915b/native/src/core/su/pts.cpp
 
@@ -167,10 +166,7 @@ pub fn prepare_pty() -> Result<()> {
         return Ok(());
     }
 
-    let mut pts_path = format!("{}/{}", get_tmp_path(), PTS_NAME);
-    if !std::path::Path::new(&pts_path).exists() {
-        pts_path = "/dev/pts".to_string();
-    }
+    let mut pts_path = "/dev/pts".to_string();
     let ptmx_path = format!("{}/ptmx", pts_path);
     let ptmx_fd = open(ptmx_path, OFlags::RDWR, Mode::empty())?;
     grantpt(&ptmx_fd)?;
