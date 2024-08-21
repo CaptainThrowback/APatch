@@ -99,5 +99,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: APatch
-          path: ${{steps.sign_app.outputs.signedReleaseFile}}
-
+          path: app/build/outputs/apk/release
